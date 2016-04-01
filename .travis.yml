@@ -5,11 +5,8 @@ language: java
 services:
   - docker
 
-env:
-  global:
-    - secure: "XxRjM4fleZezYzsHm99HkLAUTFY4ut+zxL1TNbHwiDXZ1RvpIxIO7qMV7rqdGhRwivTbcTfo1bXjmUkc8UxdUV+uK3QxnK5sdHJxo4I+3RKbBsNCoYDQLIAgx3dmAgRLMyxgaQjEaylpEfSXGxwV/T/PrCdpcsqQoLfUXZGwatJNdxtnjA85Elx6p1G4vO9n8pRruMEl1driC8LY65+cmhCiSnJ24HFI209baPWB/Z6gQj9BvjXu4mPY76TVAzlXPkDABHqq9vAQzRgcm/jkPtMKm19g9CDBu0Htx1ec33Gn9TTc25RrxH1AqSovgAlW3os4SdlQpf3xM0KfRRXBiRQ0n+Kh0Rk4CKMvbfvZG4T5TqHKYansDQ+smvy1qTP4/jwQ742ZedFKUzq9H1aqGXX/362DCArpNpZr61KjM1ZsHZPdSJtEHfj7/KSCWh2rFh2ryp9T4yn7mdRmqKBDxWbRm876eb4VjhikAmENB1If1wjuyMbdiRt60PCq9IuF7kV0UoJIiMQcRu+1lT7eRKzU1XCRsR2KbSPAZMmZWd92i9diUX8hYA55NQSrJzmek/o3PUFf4JHARzPvYlioMlsfcX2xKJdzhaYojqH+HXyPg9OWPdanWRRL7Fd9kBDWiCTywd/bWDBsTWStdV7iI3gULI+cCTSA8u3FcD+5Occ="
-
 before_install:
+  - openssl aes-256-cbc -K $encrypted_9ea66913ffd6_key -iv $encrypted_9ea66913ffd6_iv -in whitesource-docker-agent.config.enc -out whitesource-docker-agent.config -d
   - wget https://s3.amazonaws.com/docker-agent/whitesource-docker-agent-1.0.2.jar
   - DOCKER_OPTS="-H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock"
   - docker -H tcp://127.0.0.1:2375 version
@@ -19,7 +16,7 @@ before_install:
   - docker ps -a
 
 script:
-  - java -jar whitesource-docker-agent-1.0.2.jar apiKey=$APIKEY
+  - java -jar whitesource-docker-agent-1.0.2.jar
 
 after_script:
   - docker stop docker-example
