@@ -8,12 +8,13 @@ services:
 before_install:
   - DOCKER_OPTS="-H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock"
   - docker -H tcp://127.0.0.1:2375 version
-#  - docker build -t rigoford/docker-example:0.1.0 .
-#  - docker images
-#  - docker run --detach --name docker-example --publish 22:22 rigoford/docker-example:0.1.0
+  - docker build -t rigoford/docker-example:0.1.0 .
+  - docker images
+  - docker run --detach --name docker-example --publish 22:22 rigoford/docker-example:0.1.0
+  - docker ps -a
 
 script:
 #  -
 
 after_script:
-#  - docker stop docker-example
+  - docker stop docker-example
