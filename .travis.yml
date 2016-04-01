@@ -19,7 +19,7 @@ before_install:
   - docker ps -a
 
 script:
-  - java -jar whitesource-docker-agent-1.0.2.jar
+  - java -jar whitesource-docker-agent-1.0.2.jar apiKey=$APIKEY
 
 after_script:
   - docker stop docker-example
