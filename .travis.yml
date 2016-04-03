@@ -6,15 +6,15 @@ services:
   - docker
 
 before_install:
+  - openssl aes-256-cbc -K $encrypted_9ea66913ffd6_key -iv $encrypted_9ea66913ffd6_iv -in whitesource-docker-agent.config.enc -out whitesource-docker-agent.config -d
+  - wget https://s3.amazonaws.com/docker-agent/whitesource-docker-agent-1.0.2.jar
   - DOCKER_OPTS="-H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock"
   - docker -H tcp://127.0.0.1:2375 version
   - docker build -t rigoford/docker-example:0.1.0 .
-  - docker images
   - docker run --detach --name docker-example --publish 23:22 rigoford/docker-example:0.1.0
-  - docker ps -a
 
 script:
-#  -
+  - java -jar whitesource-docker-agent-1.0.2.jar
 
 after_script:
   - docker stop docker-example
