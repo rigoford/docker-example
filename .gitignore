@@ -1,3 +1,11 @@
-.idea/
+### JetBrains template
 *.iml
+
+## Directory-based project format:
+.idea/
+
+
+### Maven template
 target/
+
+# Created by .ignore support plugin (hsz.mobi)
