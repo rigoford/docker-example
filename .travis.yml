@@ -8,8 +8,8 @@ services:
 before_install:
   - openssl aes-256-cbc -K $encrypted_9ea66913ffd6_key -iv $encrypted_9ea66913ffd6_iv -in whitesource-docker-agent.config.enc -out whitesource-docker-agent.config -d
   - wget https://s3.amazonaws.com/docker-agent/whitesource-docker-agent-1.0.2.jar
-  - docker pull ubuntu:14.04
-  - docker run --detach --name docker-ubuntu-container-analysis ubuntu:14.04 tail -f /dev/null
+  - docker build -t rigoford/ubuntu:14.04 .
+  - docker run --detach --name docker-ubuntu-container-analysis rigoford/ubuntu:14.04 tail -f /dev/null
 
 script:
   - java -jar whitesource-docker-agent-1.0.2.jar
